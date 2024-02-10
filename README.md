@@ -1,1 +1,2 @@
-# Multi Backend Solver Lib (MSLB)
+# Multi Backend SMT Solver Lib (MBSSL)
+Multi Backend SMT Solver Lib
