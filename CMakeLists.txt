@@ -23,16 +23,15 @@ set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 
 # Add Src Files
 file(GLOB_RECURSE ALL_SRC_FILES "${CMAKE_SOURCE_DIR}/src/*.[ch]"
-     "${CMAKE_SOURCE_DIR}/src/*.[ch]pp" "${CMAKE_SOURCE_DIR}/test/*.[ch]"
-     "${CMAKE_SOURCE_DIR}/test/*.[ch]pp")
+     "${CMAKE_SOURCE_DIR}/src/*.[ch]pp")
 
 # Add All Includes
 include_directories("${CMAKE_SOURCE_DIR}/third_party/ANTLRv4/include"
-                    "${CMAKE_SOURCE_DIR}/src/frontend")
+                    "${CMAKE_SOURCE_DIR}/src/frontend/parser")
 
 # Find Libs
 link_directories("third_party/ANTLRv4/lib")
-set(THIRRD_PARTY_LIBS "libantlr4-runtime.a")
+set(THIRD_PARTY_LIBS "libantlr4-runtime.a")
 
 # Add Src
 add_subdirectory(src)
