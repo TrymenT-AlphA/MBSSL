@@ -1,5 +1,5 @@
-#ifndef __VISITOR_HPP__
-#define __VISITOR_HPP__
+#ifndef __SMTLIB_VISITOR_HPP__
+#define __SMTLIB_VISITOR_HPP__
 
 #include "frontend/parser/SMTLIBv2BaseVisitor.h"
 

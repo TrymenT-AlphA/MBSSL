@@ -1,66 +1,239 @@
-#include "SMTLIBVisitor.hpp"
+#include "frontend/visitor/SMTLIBVisitor.hpp"
+
+#include "frontend/visitor/SMTLIBPredef.hpp"
 
 std::any SMTLIBVisitor::visitStart(SMTLIBv2Parser::StartContext *context) {
   return visit(context->script());
 }
 
 std::any SMTLIBVisitor::visitResponse(SMTLIBv2Parser::ResponseContext *context) {
-  return nullptr;
+  return visit(context->general_response());
 }
 
 std::any SMTLIBVisitor::visitGeneralReservedWord(SMTLIBv2Parser::GeneralReservedWordContext *context) {
-  return nullptr;
+  if (context->GRW_Exclamation()) {
+    return SMTLIBv2::GRW_Exclamation;
+  } else if (context->GRW_Underscore()) {
+    return SMTLIBv2::GRW_Underscore;
+  } else if (context->GRW_As()) {
+    return SMTLIBv2::GRW_As;
+  } else if (context->GRW_Binary()) {
+    return SMTLIBv2::GRW_Binary;
+  } else if (context->GRW_Decimal()) {
+    return SMTLIBv2::GRW_Decimal;
+  } else if (context->GRW_Exists()) {
+    return SMTLIBv2::GRW_Exists;
+  } else if (context->GRW_Hexadecimal()) {
+    return SMTLIBv2::GRW_Hexadecimal;
+  } else if (context->GRW_Forall()) {
+    return SMTLIBv2::GRW_Forall;
+  } else if (context->GRW_Let()) {
+    return SMTLIBv2::GRW_Let;
+  } else if (context->GRW_Match()) {
+    return SMTLIBv2::GRW_Match;
+  } else if (context->GRW_Numeral()) {
+    return SMTLIBv2::GRW_Numeral;
+  } else if (context->GRW_Par()) {
+    return SMTLIBv2::GRW_Par;
+  } else {  // if (context->GRW_String())
+    return SMTLIBv2::GRW_String;
+  }
 }
 
 std::any SMTLIBVisitor::visitSimpleSymbol(SMTLIBv2Parser::SimpleSymbolContext *context) {
-  return nullptr;
+  if (context->predefSymbol()) {
+    return visit(context->predefSymbol());
+  } else {  // if (context->UndefinedSymbol())
+    return context->UndefinedSymbol()->getText();
+  }
 }
 
 std::any SMTLIBVisitor::visitQuotedSymbol(SMTLIBv2Parser::QuotedSymbolContext *context) {
-  return nullptr;
+  return context->QuotedSymbol()->getText();
 }
 
 std::any SMTLIBVisitor::visitPredefSymbol(SMTLIBv2Parser::PredefSymbolContext *context) {
-  return nullptr;
+  if (context->PS_Not()) {
+    return SMTLIBv2::PS_Not;
+  } else if (context->PS_Bool()) {
+    return SMTLIBv2::PS_Bool;
+  } else if (context->PS_ContinuedExecution()) {
+    return SMTLIBv2::PS_ContinuedExecution;
+  } else if (context->PS_Error()) {
+    return SMTLIBv2::PS_Error;
+  } else if (context->PS_False()) {
+    return SMTLIBv2::PS_False;
+  } else if (context->PS_ImmediateExit()) {
+    return SMTLIBv2::PS_ImmediateExit;
+  } else if (context->PS_Incomplete()) {
+    return SMTLIBv2::PS_Incomplete;
+  } else if (context->PS_Logic()) {
+    return SMTLIBv2::PS_Logic;
+  } else if (context->PS_Memout()) {
+    return SMTLIBv2::PS_Memout;
+  } else if (context->PS_Sat()) {
+    return SMTLIBv2::PS_Sat;
+  } else if (context->PS_Success()) {
+    return SMTLIBv2::PS_Success;
+  } else if (context->PS_Theory()) {
+    return SMTLIBv2::PS_Theory;
+  } else if (context->PS_True()) {
+    return SMTLIBv2::PS_True;
+  } else if (context->PS_Unknown()) {
+    return SMTLIBv2::PS_Unknown;
+  } else if (context->PS_Unsupported()) {
+    return SMTLIBv2::PS_Unsupported;
+  } else {  // if (context->PS_Unsat())
+    return SMTLIBv2::PS_Unsat;
+  }
 }
 
 std::any SMTLIBVisitor::visitPredefKeyword(SMTLIBv2Parser::PredefKeywordContext *context) {
-  return nullptr;
+  if (context->PK_AllStatistics()) {
+    return SMTLIBv2::PK_AllStatistics;
+  } else if (context->PK_AssertionStackLevels()) {
+    return SMTLIBv2::PK_AssertionStackLevels;
+  } else if (context->PK_Authors()) {
+    return SMTLIBv2::PK_Authors;
+  } else if (context->PK_Category()) {
+    return SMTLIBv2::PK_Category;
+  } else if (context->PK_Chainable()) {
+    return SMTLIBv2::PK_Chainable;
+  } else if (context->PK_Definition()) {
+    return SMTLIBv2::PK_Definition;
+  } else if (context->PK_DiagnosticOutputChannel()) {
+    return SMTLIBv2::PK_DiagnosticOutputChannel;
+  } else if (context->PK_ErrorBehaviour()) {
+    return SMTLIBv2::PK_ErrorBehaviour;
+  } else if (context->PK_Extension()) {
+    return SMTLIBv2::PK_Extension;
+  } else if (context->PK_Funs()) {
+    return SMTLIBv2::PK_Funs;
+  } else if (context->PK_FunsDescription()) {
+    return SMTLIBv2::PK_FunsDescription;
+  } else if (context->PK_GlobalDeclarations()) {
+    return SMTLIBv2::PK_GlobalDeclarations;
+  } else if (context->PK_InteractiveMode()) {
+    return SMTLIBv2::PK_InteractiveMode;
+  } else if (context->PK_Language()) {
+    return SMTLIBv2::PK_Language;
+  } else if (context->PK_LeftAssoc()) {
+    return SMTLIBv2::PK_LeftAssoc;
+  } else if (context->PK_License()) {
+    return SMTLIBv2::PK_License;
+  } else if (context->PK_Named()) {
+    return SMTLIBv2::PK_Named;
+  } else if (context->PK_Name()) {
+    return SMTLIBv2::PK_Name;
+  } else if (context->PK_Notes()) {
+    return SMTLIBv2::PK_Notes;
+  } else if (context->PK_Pattern()) {
+    return SMTLIBv2::PK_Pattern;
+  } else if (context->PK_PrintSuccess()) {
+    return SMTLIBv2::PK_PrintSuccess;
+  } else if (context->PK_ProduceAssertions()) {
+    return SMTLIBv2::PK_ProduceAssertions;
+  } else if (context->PK_ProduceAssignments()) {
+    return SMTLIBv2::PK_ProduceAssignments;
+  } else if (context->PK_ProduceModels()) {
+    return SMTLIBv2::PK_ProduceModels;
+  } else if (context->PK_ProduceProofs()) {
+    return SMTLIBv2::PK_ProduceProofs;
+  } else if (context->PK_ProduceUnsatAssumptions()) {
+    return SMTLIBv2::PK_ProduceUnsatAssumptions;
+  } else if (context->PK_ProduceUnsatCores()) {
+    return SMTLIBv2::PK_ProduceUnsatCores;
+  } else if (context->PK_RandomSeed()) {
+    return SMTLIBv2::PK_RandomSeed;
+  } else if (context->PK_ReasonUnknown()) {
+    return SMTLIBv2::PK_ReasonUnknown;
+  } else if (context->PK_RegularOutputChannel()) {
+    return SMTLIBv2::PK_RegularOutputChannel;
+  } else if (context->PK_ReproducibleResourceLimit()) {
+    return SMTLIBv2::PK_ReproducibleResourceLimit;
+  } else if (context->PK_RightAssoc()) {
+    return SMTLIBv2::PK_RightAssoc;
+  } else if (context->PK_SmtLibVersion()) {
+    return SMTLIBv2::PK_SmtLibVersion;
+  } else if (context->PK_Sorts()) {
+    return SMTLIBv2::PK_Sorts;
+  } else if (context->PK_SortsDescription()) {
+    return SMTLIBv2::PK_SortsDescription;
+  } else if (context->PK_Source()) {
+    return SMTLIBv2::PK_Source;
+  } else if (context->PK_Status()) {
+    return SMTLIBv2::PK_Status;
+  } else if (context->PK_Theories()) {
+    return SMTLIBv2::PK_Theories;
+  } else if (context->PK_Values()) {
+    return SMTLIBv2::PK_Values;
+  } else if (context->PK_Verbosity()) {
+    return SMTLIBv2::PK_Verbosity;
+  } else {  // if (context->PK_Version())
+    return SMTLIBv2::PK_Version;
+  }
 }
 
 std::any SMTLIBVisitor::visitSymbol(SMTLIBv2Parser::SymbolContext *context) {
-  return nullptr;
+  if (context->simpleSymbol()) {
+    return visit(context->simpleSymbol());
+  } else {  // if (context->quotedSymbol())
+    return visit(context->quotedSymbol());
+  }
 }
 
 std::any SMTLIBVisitor::visitNumeral(SMTLIBv2Parser::NumeralContext *context) {
-  return nullptr;
+  return static_cast<int64_t>(std::stoll(context->Numeral()->getText()));
 }
 
 std::any SMTLIBVisitor::visitDecimal(SMTLIBv2Parser::DecimalContext *context) {
-  return nullptr;
+  return static_cast<double>(std::stold(context->Decimal()->getText()));
 }
 
 std::any SMTLIBVisitor::visitHexadecimal(SMTLIBv2Parser::HexadecimalContext *context) {
-  return nullptr;
+  return static_cast<int64_t>(std::stoll(context->HexDecimal()->getText(), nullptr, 16));
 }
 
 std::any SMTLIBVisitor::visitBinary(SMTLIBv2Parser::BinaryContext *context) {
-  return nullptr;
+  return static_cast<int64_t>(std::stoll(context->Binary()->getText(), nullptr, 2));
 }
 
 std::any SMTLIBVisitor::visitString(SMTLIBv2Parser::StringContext *context) {
-  return nullptr;
+  return context->String()->getText();
 }
 
 std::any SMTLIBVisitor::visitKeyword(SMTLIBv2Parser::KeywordContext *context) {
-  return nullptr;
+  if (context->Colon()) {
+    return visit(context->simpleSymbol());
+  } else {
+    return visit(context->predefKeyword());
+  }
 }
 
 std::any SMTLIBVisitor::visitSpec_constant(SMTLIBv2Parser::Spec_constantContext *context) {
-  return nullptr;
+  if (context->numeral()) {
+    return visit(context->numeral());
+  } else if (context->decimal()) {
+    return visit(context->decimal());
+  } else if (context->hexadecimal()) {
+    return visit(context->hexadecimal());
+  } else if (context->binary()) {
+    return visit(context->binary());
+  } else {  // if (context->string())
+    return visit(context->string());
+  }
 }
 
 std::any SMTLIBVisitor::visitS_expr(SMTLIBv2Parser::S_exprContext *context) {
+  if (context->spec_constant()) {
+    return visit(context->spec_constant());
+  } else if (context->symbol()) {
+    return visit(context->symbol());
+  } else if (context->keyword()) {
+    return visit(context->keyword());
+  } else {  // ParOpen s_expr* ParClose
+    
+  }
   return nullptr;
 }
 
@@ -105,6 +278,21 @@ std::any SMTLIBVisitor::visitMatch_case(SMTLIBv2Parser::Match_caseContext *conte
 }
 
 std::any SMTLIBVisitor::visitTerm(SMTLIBv2Parser::TermContext *context) {
+  if (!context->ParOpen().size()) {
+    if (context->spec_constant()) {
+    } else if (context->qual_identifier()) {
+    } else {  // error
+    }
+  } else {
+    if (context->qual_identifier()) {
+    } else if (context->GRW_Let()) {
+    } else if (context->GRW_Forall()) {
+    } else if (context->GRW_Exists()) {
+    } else if (context->GRW_Match()) {
+    } else if (context->GRW_Exclamation()) {
+    } else {  // error
+    }
+  }
   return nullptr;
 }
 
@@ -169,6 +357,7 @@ std::any SMTLIBVisitor::visitProp_literal(SMTLIBv2Parser::Prop_literalContext *c
 }
 
 std::any SMTLIBVisitor::visitScript(SMTLIBv2Parser::ScriptContext *context) {
+  for (auto command : context->command()) visit(command);
   return nullptr;
 }
 
@@ -293,6 +482,39 @@ std::any SMTLIBVisitor::visitCmd_setOption(SMTLIBv2Parser::Cmd_setOptionContext 
 }
 
 std::any SMTLIBVisitor::visitCommand(SMTLIBv2Parser::CommandContext *context) {
+  if (context->cmd_assert()) {
+    visit(context->term(0));
+  } else if (context->cmd_checkSat()) {
+  } else if (context->cmd_checkSatAssuming()) {
+  } else if (context->cmd_declareConst()) {
+  } else if (context->cmd_declareDatatype()) {
+  } else if (context->cmd_declareDatatypes()) {
+  } else if (context->cmd_declareFun()) {
+  } else if (context->cmd_declareSort()) {
+  } else if (context->cmd_defineFun()) {
+  } else if (context->cmd_defineFunRec()) {
+  } else if (context->cmd_defineFunsRec()) {
+  } else if (context->cmd_defineSort()) {
+  } else if (context->cmd_echo()) {
+  } else if (context->cmd_exit()) {
+  } else if (context->cmd_getAssertions()) {
+  } else if (context->cmd_getAssignment()) {
+  } else if (context->cmd_getInfo()) {
+  } else if (context->cmd_getModel()) {
+  } else if (context->cmd_getOption()) {
+  } else if (context->cmd_getProof()) {
+  } else if (context->cmd_getUnsatAssumptions()) {
+  } else if (context->cmd_getUnsatCore()) {
+  } else if (context->cmd_getValue()) {
+  } else if (context->cmd_pop()) {
+  } else if (context->cmd_push()) {
+  } else if (context->cmd_reset()) {
+  } else if (context->cmd_resetAssertions()) {
+  } else if (context->cmd_setInfo()) {
+  } else if (context->cmd_setLogic()) {
+  } else if (context->cmd_setOption()) {
+  }
+
   return nullptr;
 }
 
