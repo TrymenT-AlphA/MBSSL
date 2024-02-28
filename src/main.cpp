@@ -1,9 +1,8 @@
 #include <iostream>
 
-#include "SMTLIBv2Lexer.h"
-#include "SMTLIBv2Parser.h"
-
-#include "frontend/visitor/visitor.hpp"
+#include "frontend/parser/SMTLIBv2Lexer.h"
+#include "frontend/parser/SMTLIBv2Parser.h"
+#include "frontend/visitor/SMTLIBVisitor.hpp"
 
 int main(int argc, char** argv) {
   if (argc <= 1) {

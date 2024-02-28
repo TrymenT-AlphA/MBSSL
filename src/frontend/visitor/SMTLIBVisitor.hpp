@@ -1,9 +1,9 @@
 #ifndef __VISITOR_HPP__
 #define __VISITOR_HPP__
 
-#include "SMTLIBv2BaseVisitor.h"
+#include "frontend/parser/SMTLIBv2BaseVisitor.h"
 
-class Visitor : public SMTLIBv2BaseVisitor {
+class SMTLIBVisitor : public SMTLIBv2BaseVisitor {
 public:
   virtual std::any visitStart(SMTLIBv2Parser::StartContext *context) override;
 

@@ -1,14 +1,10 @@
-cmake_minimum_required(VERSION 3.16)
-
 project(MBSSL)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
+add_subdirectory(frontend)
+add_subdirectory(midend)
 
-aux_source_directory(. SRC_FILES)
+add_executable(MBSSL main.cpp)
 
-add_subdirectory("frontend")
+target_link_libraries(MBSSL PUBLIC visitor parser ${ANTLRv4_LIBS})
 
-add_executable(MBSSL ${SRC_FILES})
-
-target_link_libraries(MBSSL PUBLIC visitor parser ${THIRD_PARTY_LIBS})
+target_link_directories(MBSSL PUBLIC ${ANTLRv4_LIBS_DIR})
